@@ -7,9 +7,10 @@ const PORT = 8000;
 
 //middleware - Plugin
 app.use(express.urlencoded({ extended: false }));
-if (req.method == 'POST') {
-  res.send("Hello World")
-}
+app.post("/",(req,res)=>{
+  return res.send("Hello World")
+})
+
 //Routes
 app.get("/api/users", (req, res) => {
   return res.json(users);
