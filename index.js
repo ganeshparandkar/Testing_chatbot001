@@ -8,6 +8,7 @@ const PORT = 8000;
 //middleware - Plugin
 app.use(express.urlencoded({ extended: false }));
 app.post("/",(req,res)=>{
+  console.log(req)
   return res.send("Hello World")
 })
 
