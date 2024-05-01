@@ -8,7 +8,14 @@ const PORT = 8000;
 //middleware - Plugin
 app.use(express.urlencoded({ extended: false }));
 app.post("/",(req,res)=>{
-  return res.send('Hii all')
+  const data = req.body.payload.payload;
+  const userData = req.body.payload;
+  const inputdata = data.text;  
+  if(inputdata == "Hii"){
+    return res.send('Hello')
+  }else{
+    return res.send('Chatbot Here')
+  }
 })
 
 //Routes
