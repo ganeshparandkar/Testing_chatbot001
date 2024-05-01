@@ -8,7 +8,7 @@ const PORT = 8000;
 //middleware - Plugin
 app.use(express.urlencoded({ extended: false }));
 app.post("/",(req,res)=>{
-  return res.send(String(req.body))
+  return res.send('Hii all')
 })
 
 //Routes
