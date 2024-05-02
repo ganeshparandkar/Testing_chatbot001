@@ -1,28 +1,33 @@
-const qs = require('querystring');
-const http = require('https');
+const http = require('http');
 
-const options = {
-  method: 'POST',
-  hostname: 'api.gupshup.io',
-  port: null,
-  path: '/sm/api/v1/app/opt/in/appname',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
-};
+// Create an HTTP server
+const server = http.createServer((req, res) => {
+    // Check if the incoming request method is POST
+    if (req.method === 'POST') {
+        let body = '';
 
-const req = http.request(options, function (res) {
-  const chunks = [];
+        // Collect data from the request body
+        req.on('data', (chunk) => {
+            body += chunk.toString();
+        });
 
-  res.on('data', function (chunk) {
-    chunks.push(chunk);
-  });
-
-  res.on('end', function () {
-    const body = Buffer.concat(chunks);
-    console.log(body.toString());
-  });
+        // When all data is received
+        req.on('end', () => {
+            // Send a response with status code 200 (OK) and "Hi!" message
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end('Hi!');
+        });
+    } else {
+        // If the request method is not POST, send a 404 (Not Found) response
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
+    }
 });
 
-req.write(qs.stringify({user: 918728374375}));
-req.end();
+// Set the port for the server to listen on
+const port = 3000;
+
+// Start the server and listen on the specified port
+server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+});
